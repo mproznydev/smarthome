@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
     *,*::after,*::before{
         box-sizing:border-box;
@@ -10,6 +10,6 @@ export const GlobalStyle = createGlobalStyle`
     *{
         margin:0;
         padding:0;
-        font-family: 'Roboto', sans-serif;
+        font-family: 'Montserrat', sans-serif;
     }
 `;

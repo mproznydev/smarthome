@@ -1,0 +1,45 @@
+{
+    "devices": 
+      [ 
+           {
+            "type": "bulb",
+            "id": "1",
+            "name": "livingroom bulb",
+            "connectionState": "connected",
+            "isTurnedOn": true,
+            "brightness": 58,
+            "color": "white"
+          },
+          {
+            "type": "outlet",
+            "id": "2",
+            "name": "livingroom outlet",
+            "connectionState": "connected",
+            "isTurnedOn": true,
+            "powerConsumption": 50
+          },
+          {
+            "type": "temperatureSensor",
+            "id": "3",
+            "name": "backyard temperature sensor",
+            "connectionState": "connected",
+            "temperature": 23
+          },
+          {
+            "type": "temperatureSensor",
+            "id": "4",
+            "name": "frontyard temperature sensor",
+            "connectionState": "connected",
+            "temperature": 25
+          },
+          {
+            "type": "outlet",
+            "id": "5",
+            "name": "kitchen outlet",
+            "connectionState": "connected",
+            "isTurnedOn": false,
+            "powerConsumption": 30
+          }
+        ]
+    
+}   
