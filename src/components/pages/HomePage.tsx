@@ -5,10 +5,11 @@ import DeviceItem from 'components/molecules/DeviceItem';
 import { useState, useEffect } from 'react';
 import useDevices from 'hooks/useDevices';
 import ErrorMessage from 'components/atoms/ErrorMessage';
-import { Device } from 'interfaces/interfaces';
+import { Device, ModalInfo } from 'interfaces/interfaces';
 import { ReactComponent as AddIcon } from 'assets/images/add.svg';
 import ModalWrapper from 'components/molecules/ModalWrapper';
 import Modal from 'components/organisms/Modal';
+import useWindowDimensions from 'hooks/useWindowDimension';
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.secondary};
@@ -41,11 +42,9 @@ const DevicesWrapper = styled.div`
   flex-direction: column;
 `;
 const DetailsWrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.secondary};
   display: none;
-  justify-items: center;
+  justify-content: center;
   align-items: center;
-
   width: 100%;
   @media (min-width: ${({ theme }) => theme.mq.tablet}) {
     display: flex;
@@ -59,23 +58,21 @@ const Content = styled.div`
   }
 `;
 
-type ModalInfo = {
-  isOpen: boolean;
-  id: string | null;
-};
-
 function HomePage() {
   const [devices, setDevices] = useState<Device[]>([]);
   const [modalInfo, setModalInfo] = useState<ModalInfo>({
+    isMobile: false,
     isOpen: false,
     id: null,
   });
-
+  const { width } = useWindowDimensions();
   const { data, error }: { data: Device[]; error: boolean } = useDevices();
 
   useEffect(() => {
     setDevices(data);
   }, [data]);
+
+  const isMobile = width < 800 ? true : false;
 
   return (
     <Wrapper>
@@ -87,7 +84,7 @@ function HomePage() {
           <DevicesList>
             {devices.length > 0
               ? devices.map((device) => (
-                  <DeviceWrapper key={device.id} onClick={() => setModalInfo({ isOpen: true, id: device.id })}>
+                  <DeviceWrapper key={device.id} onClick={() => setModalInfo({ isMobile, isOpen: true, id: device.id })}>
                     <DeviceItem device={device}></DeviceItem>
                   </DeviceWrapper>
                 ))
@@ -97,9 +94,13 @@ function HomePage() {
             <AddIcon></AddIcon>
           </AddButton>
         </DevicesWrapper>
-        <DetailsWrapper></DetailsWrapper>
+        {modalInfo.isMobile === false && modalInfo.isOpen ? (
+          <DetailsWrapper>
+            <Modal deviceId={modalInfo.id} setModalInfo={setModalInfo}></Modal>
+          </DetailsWrapper>
+        ) : null}
       </Content>
-      {modalInfo.isOpen ? (
+      {modalInfo.isOpen && modalInfo.isMobile ? (
         <ModalWrapper>
           <Modal deviceId={modalInfo.id} setModalInfo={setModalInfo}></Modal>
         </ModalWrapper>

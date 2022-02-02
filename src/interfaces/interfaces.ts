@@ -22,4 +22,5 @@ export type allTypeDevices = Bulb | Outlet | TemperatureSensor;
 export type ModalInfo = {
   isOpen: boolean;
   id: string | null;
+  isMobile: boolean;
 };

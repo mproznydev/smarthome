@@ -1,38 +1,25 @@
 import * as React from 'react';
 import { Bulb, ModalInfo } from 'interfaces/interfaces';
 import styled from 'styled-components';
+import { CloseButton } from 'components/atoms/CloseButton';
+import { ModalWrapper } from 'components/atoms/ModalWrapper';
 
 type BulbModalProps = {
   deviceDetails: Bulb;
   setModalInfo: React.Dispatch<React.SetStateAction<ModalInfo>>;
 };
 
-const Wrapper = styled.div`
-  background-color: ${({ theme }) => theme.colors.white};
-  border-radius: 15px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-`;
 const List = styled.ul``;
 const ListItem = styled.li`
   list-style: none;
   margin: 0.5rem;
 `;
-const CloseButton = styled.button`
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
-  border-radius: 15px;
-  border: 1px solid ${({ theme }) => theme.colors.black};
-  padding: 0.2rem;
-  font-size: ${({ theme }) => theme.fontSize.xs};
-  margin: auto;
-`;
 
 function BulbModal({ deviceDetails, setModalInfo }: BulbModalProps) {
   const { type, name, id, connectionState, isTurnedOn, brightness, color } = deviceDetails;
+
   return (
-    <Wrapper>
+    <ModalWrapper>
       <List>
         <ListItem>Type: {type}</ListItem>
         <ListItem>Name: {name}</ListItem>
@@ -41,8 +28,8 @@ function BulbModal({ deviceDetails, setModalInfo }: BulbModalProps) {
         <ListItem>Brightness: {brightness}</ListItem>
         <ListItem>Color: {color}</ListItem>
       </List>
-      <CloseButton onClick={() => setModalInfo({ isOpen: false, id })}>close</CloseButton>
-    </Wrapper>
+      <CloseButton onClick={() => setModalInfo({ isMobile: true, isOpen: false, id })}>close</CloseButton>
+    </ModalWrapper>
   );
 }
 
