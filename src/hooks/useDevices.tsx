@@ -1,25 +1,26 @@
-import * as React from 'react';
 import { useState, useEffect } from 'react';
+import { Device } from 'interfaces/interfaces';
 
 function useDevices() {
-  const [devices, setDevices] = useState([]);
+  const [data, setData] = useState<Device[]>([]);
+  const [error, setError] = useState<boolean>(false);
 
   const getData = async () => {
     try {
-      const items = await fetch('/api/v1/devices', {
+      const response = await fetch('/api/v1/devices', {
         method: 'GET',
-      }).then((res) => res.json());
-      setDevices(items.devices);
+      });
+      const data: Device[] = await response.json();
+      setData(data);
     } catch (e) {
-      console.log(e);
+      setError(true);
     }
   };
 
   useEffect(() => {
     getData();
   }, []);
-  console.log(devices);
-  return devices;
+  return { data, error };
 }
 
 export default useDevices;

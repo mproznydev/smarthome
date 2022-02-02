@@ -10,6 +10,7 @@ export const theme = {
     medium: '#AEB021',
   },
   fontSize: {
+    xxs: '0.9rem',
     xs: '1rem',
     s: '1.3rem',
     m: '1.5rem',
