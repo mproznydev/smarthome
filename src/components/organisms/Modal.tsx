@@ -79,7 +79,8 @@ function Modal({ deviceId, setModalInfo }: ModalProps) {
       },
     },
   });
-  const [x, y] = window.localStorage.getItem('modalPosition').split(',');
+  const [x, y] = window.localStorage.getItem('modalPosition') ? window.localStorage.getItem('modalPosition').split(',') : ['0', '0'];
+
   const position = { x: 0, y: 0 };
 
   interact('.modal').draggable({
@@ -91,7 +92,6 @@ function Modal({ deviceId, setModalInfo }: ModalProps) {
         position.x += event.dx;
         position.y += event.dy;
         window.localStorage.setItem('modalPosition', `${position.x},${position.y}`);
-
         event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
       },
     },
