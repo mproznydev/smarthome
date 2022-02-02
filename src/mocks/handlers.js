@@ -7,8 +7,9 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(SmartDevices));
   }),
 
-  //ogarnac jak id wrzucac i pobierac
-  rest.get('/api/v1/devices/{deviceId}', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(SmartDeviceDetails));
+  rest.get('/api/v1/devices/:id', (req, res, ctx) => {
+    const deviceId = req.params.id;
+    const searchingDevice = SmartDeviceDetails.find((device) => device.id === deviceId);
+    return res(ctx.status(200), ctx.json(searchingDevice));
   }),
 ];

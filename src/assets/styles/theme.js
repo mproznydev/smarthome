@@ -18,4 +18,7 @@ export const theme = {
     xl: '2rem',
     xxl: '3rem',
   },
+  mq: {
+    tablet: '800px',
+  },
 };
