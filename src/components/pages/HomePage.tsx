@@ -7,7 +7,7 @@ import useDevices from 'hooks/useDevices';
 import ErrorMessage from 'components/atoms/ErrorMessage';
 import { Device, ModalInfo } from 'interfaces/interfaces';
 import { ReactComponent as AddIcon } from 'assets/images/add.svg';
-import ModalWrapper from 'components/molecules/ModalWrapper';
+import ModalHtmlWrapper from 'components/molecules/ModalHtmlWrapper';
 import Modal from 'components/organisms/Modal';
 import useWindowDimensions from 'hooks/useWindowDimension';
 
@@ -94,16 +94,18 @@ function HomePage() {
             <AddIcon></AddIcon>
           </AddButton>
         </DevicesWrapper>
-        {modalInfo.isMobile === false && modalInfo.isOpen ? (
-          <DetailsWrapper>
+        <DetailsWrapper>
+          {modalInfo.isMobile === false && modalInfo.isOpen ? (
             <Modal deviceId={modalInfo.id} setModalInfo={setModalInfo}></Modal>
-          </DetailsWrapper>
-        ) : null}
+          ) : (
+            <Title>please choose device</Title>
+          )}
+        </DetailsWrapper>
       </Content>
       {modalInfo.isOpen && modalInfo.isMobile ? (
-        <ModalWrapper>
+        <ModalHtmlWrapper>
           <Modal deviceId={modalInfo.id} setModalInfo={setModalInfo}></Modal>
-        </ModalWrapper>
+        </ModalHtmlWrapper>
       ) : null}
     </Wrapper>
   );

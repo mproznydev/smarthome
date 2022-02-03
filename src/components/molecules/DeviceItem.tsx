@@ -54,7 +54,6 @@ const Status = styled.p<{ connectionState: string }>`
 `;
 
 const Icon = ({ type }: { type: string }) => {
-  //make it DRY
   if (type === 'bulb') {
     return <Bulb></Bulb>;
   } else if (type === 'outlet') {

@@ -5,21 +5,29 @@ function useDevices() {
   const [data, setData] = useState<Device[]>([]);
   const [error, setError] = useState<boolean>(false);
 
-  const getData = async () => {
-    try {
-      const response = await fetch('/api/v1/devices', {
-        method: 'GET',
-      });
-      const data: Device[] = await response.json();
-      setData(data);
-    } catch (e) {
-      setError(true);
-    }
-  };
-
   useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetch('/api/v1/devices', {
+          method: 'GET',
+        });
+        const data: Device[] = await response.json();
+        setData(data);
+      } catch (e) {
+        setError(true);
+      }
+    };
+
+    const fetchInterval = setInterval(() => {
+      getData();
+    }, 9000);
+
     getData();
+    return () => {
+      clearInterval(fetchInterval);
+    };
   }, []);
+
   return { data, error };
 }
 

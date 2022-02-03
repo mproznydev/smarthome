@@ -11,7 +11,7 @@ export const SmartDeviceDetails = [
   {
     type: 'outlet',
     id: '2',
-    name: 'living room2',
+    name: 'living room 2',
     connectionState: 'connected',
     isTurnedOn: true,
     powerConsumption: 50,
@@ -50,7 +50,7 @@ export const SmartDevices = [
   {
     type: 'outlet',
     id: '2',
-    name: 'living room2',
+    name: 'living room 2',
     connectionState: 'connected',
   },
   {

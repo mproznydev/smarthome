@@ -3,29 +3,25 @@ import { Outlet, ModalInfo } from 'interfaces/interfaces';
 import styled from 'styled-components';
 import { CloseButton } from 'components/atoms/CloseButton';
 import { ModalWrapper } from 'components/atoms/ModalWrapper';
+import { ModalItem } from 'components/atoms/ModalItem';
+import { ListWrapper } from 'components/atoms/ListWrapper';
 
 type OutletModalProps = {
   deviceDetails: Outlet;
   setModalInfo: React.Dispatch<React.SetStateAction<ModalInfo>>;
 };
 
-const List = styled.ul``;
-const ListItem = styled.li`
-  list-style: none;
-  margin: 0.5rem;
-`;
-
 function OutletModal({ deviceDetails, setModalInfo }: OutletModalProps) {
   const { type, name, id, connectionState, powerConsumption, isTurnedOn } = deviceDetails;
   return (
     <ModalWrapper>
-      <List>
-        <ListItem>Type: {type}</ListItem>
-        <ListItem>Name: {name}</ListItem>
-        <ListItem>Connection: {connectionState}</ListItem>
-        <ListItem>Turned on: {isTurnedOn === true ? 'yes' : 'no'}</ListItem>
-        <ListItem>Power consumption: {powerConsumption}W</ListItem>
-      </List>
+      <ListWrapper>
+        <ModalItem>Type: {type}</ModalItem>
+        <ModalItem>Name: {name}</ModalItem>
+        <ModalItem>Connection: {connectionState}</ModalItem>
+        <ModalItem>Turned on: {isTurnedOn === true ? 'yes' : 'no'}</ModalItem>
+        <ModalItem>Power consumption: {powerConsumption}W</ModalItem>
+      </ListWrapper>
       <CloseButton onClick={() => setModalInfo({ isMobile: true, isOpen: false, id })}>close</CloseButton>
     </ModalWrapper>
   );

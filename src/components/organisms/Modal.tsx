@@ -1,42 +1,16 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { allTypeDevices } from 'interfaces/interfaces';
+import { allTypeDevices, ModalInfo } from 'interfaces/interfaces';
 import BulbModal from 'components/molecules/BulbModal';
 import OutletModal from 'components/molecules/OutletModal';
 import TemperatureSensorModal from 'components/molecules/TemperatureSensorModal';
 import interact from 'interactjs';
 
-const position = { x: 0, y: 0 };
-
-interact('.draggable').draggable({
-  listeners: {
-    start(event) {
-      console.log(event.type, event.target);
-    },
-    move(event) {
-      position.x += event.dx;
-      position.y += event.dy;
-
-      event.target.style.transform = `translate(${position.x}px, ${position.y}px)`;
-    },
-  },
-});
-
-type ModalInfo = {
-  isOpen: boolean;
-  id: string | null;
-};
-
 type ModalProps = {
   deviceId: string;
   setModalInfo: React.Dispatch<React.SetStateAction<ModalInfo>>;
 };
-
-const Wrapper = styled.div<{ position: { x: string; y: string } }>`
-  display: flex;
-  transform: ${({ position }) => `translate(${position.x}px, ${position.y}px)`};
-`;
 
 const defaultDeviceDetails = {
   type: '',
@@ -49,10 +23,35 @@ const defaultDeviceDetails = {
   powerConsumption: 0,
   temperature: 0,
 };
+
+const Wrapper = styled.div<{ position: { x: string; y: string } }>`
+  display: flex;
+  transform: ${({ position }) => `translate(${position.x}px, ${position.y}px)`};
+`;
+
 function Modal({ deviceId, setModalInfo }: ModalProps) {
   const [deviceDetails, setDeviceDetails] = useState<allTypeDevices>(defaultDeviceDetails);
+
   useEffect(() => {
+    const getDetails = async (id: string) => {
+      try {
+        const response = await fetch(`/api/v1/devices/${id}`, {
+          method: 'GET',
+        });
+        const data: allTypeDevices = await response.json();
+        setDeviceDetails(data);
+      } catch (e) {}
+    };
+
+    const fetchInterval = setInterval(() => {
+      getDetails(deviceId);
+    }, 9000);
+
     getDetails(deviceId);
+
+    return () => {
+      clearInterval(fetchInterval);
+    };
   }, [deviceId]);
 
   interact('.modal').resizable({
@@ -79,6 +78,7 @@ function Modal({ deviceId, setModalInfo }: ModalProps) {
       },
     },
   });
+
   const [x, y] = window.localStorage.getItem('modalPosition') ? window.localStorage.getItem('modalPosition').split(',') : ['0', '0'];
 
   const position = { x: 0, y: 0 };
@@ -96,16 +96,6 @@ function Modal({ deviceId, setModalInfo }: ModalProps) {
       },
     },
   });
-
-  const getDetails = async (id: string) => {
-    try {
-      const response = await fetch(`/api/v1/devices/${id}`, {
-        method: 'GET',
-      });
-      const data: allTypeDevices = await response.json();
-      setDeviceDetails(data);
-    } catch (e) {}
-  };
 
   const renderModal = () => {
     if ('color' in deviceDetails) {

@@ -17,7 +17,7 @@ const Wrapper = styled.div`
   background: rgba(0, 0, 0, 0.6);
 `;
 
-const Modal = ({ children }: { children: React.ReactNode }) => {
+const ModalHtmlWrapper = ({ children }: { children: React.ReactNode }) => {
   const modalContainer = document.getElementById('modal-container');
   const modalNode = document.createElement('div');
 
@@ -32,4 +32,4 @@ const Modal = ({ children }: { children: React.ReactNode }) => {
   return ReactDOM.createPortal(<Wrapper>{children}</Wrapper>, modalNode);
 };
 
-export default Modal;
+export default ModalHtmlWrapper;
