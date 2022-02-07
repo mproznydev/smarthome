@@ -75,7 +75,7 @@ function Modal({ deviceId, setModalInfo }: ModalProps) {
 
   const [x, y] = window.localStorage.getItem('modalPosition') ? window.localStorage.getItem('modalPosition').split(',') : ['0', '0'];
 
-  const position = { x: Number(x), y: Number(y) };
+  const position = { x: x ? Number(x) : 0, y: y ? Number(y) : 0 };
 
   interact('.modal').draggable({
     listeners: {
