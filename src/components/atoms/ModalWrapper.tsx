@@ -5,6 +5,8 @@ export const ModalWrapper = styled.div`
   padding: 2rem;
   display: flex;
   position: relative;
+  min-width: 300px;
+  min-height: 300px;
   width: 100%;
   flex-direction: column;
   touch-action: none;
