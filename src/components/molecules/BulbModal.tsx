@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Bulb, ModalInfo } from 'interfaces/interfaces';
-import styled from 'styled-components';
 import { CloseButton } from 'components/atoms/CloseButton';
 import { ModalWrapper } from 'components/atoms/ModalWrapper';
 import { ModalItem } from 'components/atoms/ModalItem';

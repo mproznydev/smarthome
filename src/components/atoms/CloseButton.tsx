@@ -5,7 +5,7 @@ export const CloseButton = styled.button`
   color: ${({ theme }) => theme.colors.white};
   border-radius: 15px;
   border: 1px solid ${({ theme }) => theme.colors.black};
-  padding: 0.2rem;
+  padding: 0.2rem 0.4rem;
   font-size: ${({ theme }) => theme.fontSize.xs};
   margin: auto;
   cursor: pointer;

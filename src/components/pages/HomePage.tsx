@@ -24,6 +24,7 @@ const Title = styled.p`
 `;
 const DevicesList = styled.ul`
   max-width: 400px;
+  width: 100%;
 `;
 const AddButton = styled.button`
   align-self: center;
@@ -52,8 +53,9 @@ const DetailsWrapper = styled.div`
 `;
 const Content = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   @media (min-width: ${({ theme }) => theme.mq.tablet}) {
+    justify-content: space-between;
     min-height: 86vh;
   }
 `;

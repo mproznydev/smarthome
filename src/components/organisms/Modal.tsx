@@ -32,26 +32,20 @@ const Wrapper = styled.div<{ position: { x: string; y: string } }>`
 function Modal({ deviceId, setModalInfo }: ModalProps) {
   const [deviceDetails, setDeviceDetails] = useState<allTypeDevices>(defaultDeviceDetails);
 
+  const getDetails = async (id: string) => {
+    try {
+      const response = await fetch(`/api/v1/devices/${id}`, {
+        method: 'GET',
+      });
+      const data: allTypeDevices = await response.json();
+      setDeviceDetails(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
-    const getDetails = async (id: string) => {
-      try {
-        const response = await fetch(`/api/v1/devices/${id}`, {
-          method: 'GET',
-        });
-        const data: allTypeDevices = await response.json();
-        setDeviceDetails(data);
-      } catch (e) {}
-    };
-
-    const fetchInterval = setInterval(() => {
-      getDetails(deviceId);
-    }, 9000);
-
     getDetails(deviceId);
-
-    return () => {
-      clearInterval(fetchInterval);
-    };
   }, [deviceId]);
 
   interact('.modal').resizable({

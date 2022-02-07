@@ -20,7 +20,7 @@ function useDevices() {
 
     const fetchInterval = setInterval(() => {
       getData();
-    }, 9000);
+    }, 60 * 1000);
 
     getData();
     return () => {
